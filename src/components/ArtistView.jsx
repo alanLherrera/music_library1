@@ -1,41 +1,43 @@
-import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function ArtistView() {
-  const { id } = useParams()
-  const navigate = useNavigate()
-  const [ artistData, setArtistData ] = useState([])
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [artistData, setArtistData] = useState([]);
 
   useEffect(() => {
-    const API_URL = 'http://localhost:4000/album/${id}'
+    const API_URL = "https://itunes.apple.com/search?term=jack+johnson.";
     const fetchData = async () => {
-     const response = await fetch(API_URL)
-     const resData = await response.json()
-     setArtistData(resData.results)
+      const response = await fetch(API_URL);
+      const resData = await response.json();
+      setArtistData(resData.results);
+    };
+    fetchData();
+  }, [id]);
 
-    }
-   fetchData()
-    
-  }, [id])
+  const renderAlbums = artistData
+    .filter((entry) => entry.collectionType === "Album")
+    .map((album, i) => {
+      return (
+        <div key={i}>
+          <link to={`/album/${album.collectionId}`}>
+            <p>{album.collectionName}</p>
+          </link>
+        </div>
+      );
+    });
 
-  const renderAlbums = artistData.filter(entry => entry.collectionType === 'Album').map((album, i) => {
-    return(
-      <div key={i}>
-        <link to ={`/album/${album.collectionId}`}>
-              <p>{album.collectionName}</p>
-        </link>
-      </div>
-    )
-  })
-  
   const navButtons = () => {
-    return(
+    return (
       <div>
-          <button onClick={() => navigate(-1)}>Back</button>
-          <span style={{padding: "0 15px"}}>|</span>
-          <button onClick={() => navigate ('/')}>Home</button>
+        <button onClick={() => navigate(-1)}>Back</button>
+        <span style={{ padding: "0 15px" }}>|</span>
+        <button onClick={() => navigate("/")}>Home</button>
       </div>
-    )
-  }
+    );
+  };
+}
 
- }
+export default ArtistView;

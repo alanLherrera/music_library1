@@ -1,12 +1,12 @@
 import { useState, useRef, Fragment } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Gallery from "./Components/Gallery.jsx";
-import SearchBar from "./Components/SearchBar.jsx";
+import Gallery from "./components/Gallery.jsx";
+import SearchBar from "./components/SearchBar.jsx";
 import { DataContext } from "./Context/DataContext.jsx";
 import { SearchContext } from "./Context/SearchContext.jsx";
-import AlbumView from "./Components/AlbumView";
-import ArtistView from "./Components/ArtistView";
+import ArtistView from "./components/ArtistView";
+import AlbumView from "./components/AlbumViews";
 
 function App() {
   let [message, setMessage] = useState("Search for Music!");
